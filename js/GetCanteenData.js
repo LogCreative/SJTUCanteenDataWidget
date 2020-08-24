@@ -1,8 +1,5 @@
 function refreshData(){
                 
-    function _setHtml(dom, h) {
-        dom.innerHTML = h;
-    }
     function _ajaxReq() {
         var xmlhttp;
         if (window.XMLHttpRequest) {
