@@ -91,6 +91,31 @@ function refreshData(){
                         recommend[i] = -1;
                 }
 
+                //推荐排序
+                // var order = new Array(count);
+                var prevMax = 200000;
+                for(var i = 0; i < count; i++){
+                    var maxValue = -1;
+                    var maxptr = -1;
+                    for(var j = 0; j < 9; j++){
+                        if (recommend[j]>maxValue && recommend[j]<prevMax){
+                            maxValue = recommend[j];
+                            maxptr = j;
+                        }
+                    }
+                    // order[i] = maxptr;
+                    // 增加样式 N O Q R D F
+                    // var prefix = ['N','O','Q','R','D','F'];
+                    // for(var i=0; i<prefix.length; i++)
+                    // 双 for 容易崩溃
+                    $('#N'+(maxptr+1)*100).css('grid-row',i+2);
+                    $('#O'+(maxptr+1)*100).css('grid-row',i+2);
+                    $('#Q'+(maxptr+1)*100).css('grid-row',i+2);
+                    $('#R'+(maxptr+1)*100).css('grid-row',i+2);
+                    $('#D'+(maxptr+1)*100).css('grid-row',i+2);
+                    $('#F'+(maxptr+1)*100).css('grid-row',i+2);
+                    prevMax = maxValue;
+                }
 
                 document.getElementById('R000').innerHTML = remain;
                 var percent = Math.round(remain/seats * 100);
