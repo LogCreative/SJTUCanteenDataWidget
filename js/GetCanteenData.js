@@ -33,20 +33,20 @@ function refreshData(){
                 avgDist = totalDist / count;
                 
                 //距离衰减因数 = 1 - (距离/总距离) (算法一弃用)
-                var decay = Array(9);      
-                for(var i=0;i<9;++i)
-                    if(document.getElementById('D' + (i+1)*100))            // 六餐不参与
-                        decay[i] = 1 - (dist[i] / totalDist);
-                    else
-                        decay[i] = -1;
-
-                // 距离衰减因数 = 1 / (距离/平均距离) (算法二)
                 // var decay = Array(9);      
                 // for(var i=0;i<9;++i)
                 //     if(document.getElementById('D' + (i+1)*100))            // 六餐不参与
-                //         decay[i] = avgDist / dist[i];
+                //         decay[i] = 1 - (dist[i] / totalDist);
                 //     else
                 //         decay[i] = -1;
+
+                // 距离衰减因数 = 1 / (距离/平均距离) (算法二)
+                var decay = Array(9);      
+                for(var i=0;i<9;++i)
+                    if(document.getElementById('D' + (i+1)*100))            // 六餐不参与
+                        decay[i] = avgDist / dist[i];
+                    else
+                        decay[i] = -1;
 
                 // 剩余人数
                 var remains = Array(9);
