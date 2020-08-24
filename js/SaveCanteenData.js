@@ -7,6 +7,8 @@
 
     var samplecount = 0;
 
+    var chart = null;
+
     refreshData();
 
     //定时器
@@ -56,8 +58,8 @@ function refreshData(){
 
                 ++samplecount;
 
-                if(samplecount<=10 || samplecount % 10 == 0){
-                // 创建 HighCharts
+                if(samplecount==1){
+                    // 创建 HighCharts
                 Highcharts.setOptions({
                     global:{
                         useUTC: false
@@ -66,10 +68,10 @@ function refreshData(){
                     },
                 });
 
-                Highcharts.chart('container', {
+                chart = Highcharts.chart('container', {
                         chart: {
                             zoomType: 'x',
-                            redraw: false,
+                            // redraw: false,
                         },
                         title: {
                             text: '趋势数据'
@@ -188,7 +190,12 @@ function refreshData(){
                         }
                     ]
                 });
-            }
+                } else {
+                    for(var i=0;i<5;++i)
+                        chart.series[i].update({data:history[i]});
+                    for(var i=6;i<9;++i)
+                        chart.series[i-1].update({data:history[i]});
+                }
 
             }
         };
