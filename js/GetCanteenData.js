@@ -20,23 +20,31 @@ function refreshData(){
                 var used = 0;
                 var remain = 0;
 
-                for(i in CData){
-                    seats += CData[i]['Seat_s']; //总座位数
-                    used += CData[i]['Seat_u'];  //使用中的座位数
-                    remain += CData[i]['Seat_r'];  //剩余的座位数
+                // 距离数据
+                var dist = [0.55,1.0,0.75,0.15,1.6,1.7,1.5,0.77,0.41];
 
-                    var NameControl = document.getElementById('N'+ CData[i]['Id']);
+                for(i in CData){
+                    
+                    var id = CData[i]['Id']
+
+                    var NameControl = document.getElementById('N'+ id);
                     if(NameControl) { NameControl.innerHTML = CData[i]['Name'];}
-                    var RemainControl = document.getElementById('R'+ CData[i]['Id']);
+                    var RemainControl = document.getElementById('R'+ id);
                     if(RemainControl) { RemainControl.innerHTML = CData[i]['Seat_r']};
-                    var ProgressControl = document.getElementById('P'+ CData[i]['Id']);
+                    var ProgressControl = document.getElementById('P'+ id);
                     if(ProgressControl) { 
                         var Percentage = Math.round(CData[i]['Seat_r']/CData[i]['Seat_s'] * 100);
                         Percentage = (Percentage>100 ? 100 : Percentage);
                         ProgressControl.value = Percentage;
-                        var PercentageControl = document.getElementById('Q' + CData[i]['Id']);
+                        var PercentageControl = document.getElementById('Q' + id);
                         if(PercentageControl){ PercentageControl.innerHTML = Percentage + '%'; }
+                        seats += CData[i]['Seat_s']; //总座位数
+                        used += CData[i]['Seat_u'];  //使用中的座位数
+                        remain += CData[i]['Seat_r'];  //剩余的座位数
                     }
+                    var DistControl = document.getElementById('D'+ id);
+                    if(DistControl) { DistControl.innerHTML = dist[id/100 - 1];}
+                    
                 }
 
                 document.getElementById('R000').innerHTML = remain;

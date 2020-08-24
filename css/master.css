@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-column: auto auto auto auto;
+    grid-column: auto auto auto auto auto;
     grid-auto-rows: auto;
     height: 500px;
 
@@ -20,4 +20,8 @@
 
 .remain {
     grid-column: 4;
+}
+
+.distance {
+    grid-column: 5;
 }
