@@ -1,0 +1,23 @@
+.container {
+    display: grid;
+    grid-column: auto auto auto auto;
+    grid-auto-rows: auto;
+    height: 500px;
+
+}
+
+.name {
+    grid-column: 1;
+}
+
+.progressbar {
+    grid-column: 2;
+}
+
+.percent {
+    grid-column: 3;
+}
+
+.remain {
+    grid-column: 4;
+}
