@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="progress.css" />
         <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
         <script type="text/javascript">
             function refreshData(){
@@ -8,7 +9,7 @@
                 function _setHtml(dom, h) {
                     dom.innerHTML = h;
                 }
-                function _ajaxReq(canteenId) {
+                function _ajaxReq() {
                     var xmlhttp;
                     if (window.XMLHttpRequest) {
                         //code for IE7,firefox chrome and above
@@ -20,21 +21,26 @@
                     xmlhttp.onreadystatechange = function() {
                         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                             var CData = JSON.parse(xmlhttp.responseText);
+                            // console.log(CData);
                             for(i in CData){
-                                if(CData[i]['Id']==canteenId){
-                                    //seats = CData[i]['Seat_s'];
-                                    //used = CData[i]['Seat_u'];
-                                    //remain = CData[i]['Seat_r'];
-                                    document.getElementById("CanteenNum").innerHTML = CData[i]['Seat_r'];
-                                    break;
-                                }
+                                //seats = CData[i]['Seat_s']; //总座位数
+                                //used = CData[i]['Seat_u'];  //使用中的座位数
+                                //remain = CData[i]['Seat_r'];  //剩余的座位数
+                                var NameControl = document.getElementById('N'+ CData[i]['Id']);
+                                if(NameControl) { NameControl.innerHTML = CData[i]['Name'];}
+                                var RemainControl = document.getElementById('R'+ CData[i]['Id']);
+                                if(RemainControl) { RemainControl.innerHTML = CData[i]['Seat_r']};
+                                var ProgressControl = document.getElementById('P'+ CData[i]['Id']);
+                                if(ProgressControl) { 
+                                    var Percentage = Math.round(CData[i]['Seat_r']/CData[i]['Seat_s'] * 100);
+                                    ProgressControl.value = (Percentage>100 ? 100 : Percentage);}
                             }
                         }
                     };
                     xmlhttp.open('GET', 'https://canteen.sjtu.edu.cn/CARD/Ajax/Place' , true);
                     xmlhttp.send();
                 }
-                _ajaxReq(400);
+                _ajaxReq();
                 
             }
 
@@ -45,6 +51,77 @@
         </script>
     </head>
     <body>
-        <p id="CanteenNum"></p>
+        <div class="container">
+            <div id="C100">
+                <div id="N100"></div>
+                <div class="progress-container">
+                    <progress id="P100" max="100" class="progress"></progress>
+                </div>
+                <div class="remain" id="R100"></div>
+            </div>
+            <div id="C200">
+                <div id="N200"></div>
+                <div class="progress-container">
+                    <progress id="P200" max="100" class="progress"></progress>
+                </div>
+                <div id="R200"></div>
+            </div>
+            <div id="C300">
+                <div id="N300"></div>
+                <div class="progress-container">
+                    <progress id="P300" max="100" class="progress"></progress>
+                </div>
+                <div id="R300"></div>
+            </div>
+            <div id="C400">
+                <div id="N400"></div>
+                <div class="progress-container">
+                    <progress id="P400" max="100" class="progress"></progress>
+                </div>
+                <div id="R400"></div>
+            </div>
+            <div id="C500">
+                <div id="N500"></div>
+                <div class="progress-container">
+                    <progress id="P500" max="100" class="progress"></progress>
+                </div>
+                <div id="R500"></div>
+            </div>
+            <div id="C700">
+                <div id="N700"></div>
+                <div class="progress-container">
+                    <progress id="P700" max="100" class="progress"></progress>
+                </div>
+                <div id="R700"></div>
+            </div>
+            <div id="C800">
+                <div id="N800"></div>
+                <div class="progress-container">
+                    <progress id="P800" max="100" class="progress"></progress>
+                </div>
+                <div id="R800"></div>
+            </div>
+            <div id="C900">
+                <div id="N900"></div>
+                <div class="progress-container">
+                    <progress id="P900" max="100" class="progress"></progress>
+                </div>
+                <div id="R900"></div>
+            </div>
+            <div id="C1000">
+                <div id="N1000"></div>
+                <div class="progress-container">
+                    <progress id="P1000" max="100" class="progress"></progress>
+                </div>
+                <div id="R1000"></div>
+            </div>
+            <div id="C1100">
+                <div id="N1100"></div>
+                <div class="progress-container">
+                    <progress id="P1100" max="100" class="progress"></progress>
+                </div>
+                <div id="R1100"></div>
+            </div>
+        </div>
     </body>
 </html>

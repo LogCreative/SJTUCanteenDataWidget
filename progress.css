@@ -1,0 +1,100 @@
+.progress {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 450px;
+    height: 20px;
+    max-width: 100%;
+}
+.progress::-webkit-progress-bar {
+    background: #eee;
+    border: 1px solid #ebebeb;
+}
+.progress::-webkit-progress-value {
+    background: -webkit-linear-gradient(right, #f74c4a, #ea0d0a);
+    background: linear-gradient(to left, #f74c4a, #ea0d0a);
+}
+.progress::-moz-progress-bar {
+    background: linear-gradient(to left, #f74c4a, #ea0d0a);
+}
+.progress[value^="3"]:not([value="3"])::-webkit-progress-value,
+.progress[value^="4"]:not([value="4"])::-webkit-progress-value,
+.progress[value^="5"]:not([value="5"])::-webkit-progress-value {
+    background: -webkit-linear-gradient(right, #ffd44b, #fec100);
+    background: linear-gradient(to left, #ffd44b, #fec100);
+}
+.progress[value^="3"]:not([value="3"])::-moz-progress-bar,
+.progress[value^="4"]:not([value="4"])::-moz-progress-bar,
+.progress[value^="5"]:not([value="5"])::-moz-progress-bar {
+    background: linear-gradient(to left, #ffd44b, #fec100);
+}
+.progress[value^="6"]:not([value="6"])::-webkit-progress-value,
+.progress[value^="7"]:not([value="7"])::-webkit-progress-value,
+.progress[value^="8"]:not([value="8"])::-webkit-progress-value,
+.progress[value^="9"]:not([value="9"])::-webkit-progress-value,
+.progress[value="100"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(right, #4fd364, #2bab3f);
+    background: linear-gradient(to left, #4fd364, #2bab3f);
+}
+.progress[value^="6"]:not([value="6"])::-moz-progress-bar,
+.progress[value^="7"]:not([value="7"])::-moz-progress-bar,
+.progress[value^="8"]:not([value="8"])::-moz-progress-bar,
+.progress[value^="9"]:not([value="9"])::-moz-progress-bar,
+.progress[value="100"]::-moz-progress-bar {
+    background: linear-gradient(to left, #4fd364, #2bab3f);
+}
+.progress:after {
+    content: attr(value) "%";
+    margin-left: 20px;
+    font-weight: bold;
+    width: 2em;
+}
+.buttons {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+.progress-container {
+    background: #fff;
+    font: normal normal 16px -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    /* border: 2px solid #eee; */
+    max-width: 100%;
+}
+.container {
+    max-width: 100%;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    /* -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center; */
+}
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+}
