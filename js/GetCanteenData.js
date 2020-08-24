@@ -15,7 +15,7 @@ function refreshData(){
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var CData = JSON.parse(xmlhttp.responseText);
-                // console.log(CData);
+
                 var seats = 0;
                 var used = 0;
                 var remain = 0;
@@ -32,21 +32,21 @@ function refreshData(){
                         { totalDist += dist[i]; ++count; }
                 avgDist = totalDist / count;
                 
-                // 距离衰减因数 = 1 - (距离/总距离) (算法一弃用)
-                // var decay = Array(9);      
-                // for(var i=0;i<9;++i)
-                //     if(document.getElementById('D' + (i+1)*100))            // 六餐不参与
-                //         decay[i] = 1 - (dist[i] / totalDist);
-                //     else
-                //         decay[i] = -1;
-
-                // 距离衰减因数 = 1 / (距离/平均距离) (算法二)
+                //距离衰减因数 = 1 - (距离/总距离) (算法一弃用)
                 var decay = Array(9);      
                 for(var i=0;i<9;++i)
                     if(document.getElementById('D' + (i+1)*100))            // 六餐不参与
-                        decay[i] = avgDist / dist[i];
+                        decay[i] = 1 - (dist[i] / totalDist);
                     else
                         decay[i] = -1;
+
+                // 距离衰减因数 = 1 / (距离/平均距离) (算法二)
+                // var decay = Array(9);      
+                // for(var i=0;i<9;++i)
+                //     if(document.getElementById('D' + (i+1)*100))            // 六餐不参与
+                //         decay[i] = avgDist / dist[i];
+                //     else
+                //         decay[i] = -1;
 
                 // 剩余人数
                 var remains = Array(9);
@@ -56,21 +56,32 @@ function refreshData(){
                     var id = CData[i]['Id']
                     var shortid = id/100 - 1;
 
+                    var seatsPart = CData[i]['Seat_s'];
+                    var usedPart = CData[i]['Seat_u'];
+                    var remainsPart = CData[i]['Seat_r'];
+
+                    if(id==500){        //数据修正
+                        seatsPart = 423;
+                        remainsPart = seatsPart - usedPart;
+                    }
+
                     var NameControl = document.getElementById('N'+ id);
                     if(NameControl) { NameControl.innerHTML = CData[i]['Name'];}
                     var RemainControl = document.getElementById('R'+ id);
-                    if(RemainControl) { RemainControl.innerHTML = CData[i]['Seat_r']};
+                    if(RemainControl) { 
+                        RemainControl.innerHTML = remainsPart;
+                    };
                     var ProgressControl = document.getElementById('P'+ id);
                     if(ProgressControl) { 
-                        var Percentage = Math.round(CData[i]['Seat_r']/CData[i]['Seat_s'] * 100);
-                        Percentage = (Percentage>100 ? 100 : Percentage);
+                        var Percentage = Math.round(remainsPart/seatsPart * 100);
+                        Percentage = (Percentage>100 ? 100 : (Percentage<0 ? 0 : Percentage));
                         ProgressControl.value = Percentage;
                         var PercentageControl = document.getElementById('Q' + id);
                         if(PercentageControl){ PercentageControl.innerHTML = Percentage + '%'; }
-                        seats += CData[i]['Seat_s']; //总座位数
-                        used += CData[i]['Seat_u'];  //使用中的座位数
-                        remain += CData[i]['Seat_r'];  //剩余的座位数
-                        remains[shortid] = CData[i]['Seat_r'];
+                        seats += seatsPart; //总座位数
+                        used += usedPart;  //使用中的座位数
+                        remain += remainsPart;  //剩余的座位数
+                        remains[shortid] = remainsPart;
                     }
                     var DistControl = document.getElementById('D'+ id);
                     if(DistControl) {
