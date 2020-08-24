@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+        <script type="text/javascript">
+            function refreshData(){
+                
+                function _setHtml(dom, h) {
+                    dom.innerHTML = h;
+                }
+                function _ajaxReq(canteenId) {
+                    var xmlhttp;
+                    if (window.XMLHttpRequest) {
+                        //code for IE7,firefox chrome and above
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        //code for Internet Explorer
+                        xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            var CData = JSON.parse(xmlhttp.responseText);
+                            for(i in CData){
+                                if(CData[i]['Id']==canteenId){
+                                    //seats = CData[i]['Seat_s'];
+                                    //used = CData[i]['Seat_u'];
+                                    //remain = CData[i]['Seat_r'];
+                                    document.getElementById("CanteenNum").innerHTML = CData[i]['Seat_r'];
+                                    break;
+                                }
+                            }
+                        }
+                    };
+                    xmlhttp.open('GET', 'https://canteen.sjtu.edu.cn/CARD/Ajax/Place' , true);
+                    xmlhttp.send();
+                }
+                _ajaxReq(400);
+                
+            }
+
+            refreshData();
+
+            //定时器
+            var int=self.setInterval("refreshData()",10000);
+        </script>
+    </head>
+    <body>
+        <p id="CanteenNum"></p>
+    </body>
+</html>
