@@ -25,3 +25,7 @@
 .distance {
     grid-column: 5;
 }
+
+.recommend {
+    grid-column: 6;
+}
