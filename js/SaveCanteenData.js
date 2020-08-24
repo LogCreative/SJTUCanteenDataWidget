@@ -36,12 +36,15 @@ function refreshData(){
                     var id = CData[i]['Id']
                     var shortid = id/100 - 1;
 
-                    var seatsPart = CData[i]['Seat_s']
+                    var seatsPart = CData[i]['Seat_s'];
                     var remainsPart = CData[i]['Seat_r'];
 
                     if(id==500){        //数据修正
                         seatsPart = 423;
                         remainsPart = 423 - CData[i]['Seat_u'];
+                    } else if(id==700){ 
+                        seatsPart = 206;
+                        remainsPart = 206 - CData[i]['Seat_u'];
                     }
 
                     var percentage = Math.round(remainsPart / seatsPart * 100);
@@ -65,7 +68,8 @@ function refreshData(){
 
                 Highcharts.chart('container', {
                         chart: {
-                            zoomType: 'x'
+                            zoomType: 'x',
+                            redraw: false,
                         },
                         title: {
                             text: '趋势数据'
@@ -109,6 +113,7 @@ function refreshData(){
                                     return this.value+ '%';
                                 }
                             },
+                            max: 100,
                         },
                         legend: {
                             enabled: true
@@ -144,15 +149,18 @@ function refreshData(){
                             type: 'area',
                             name: '一餐',
                             data: history[0],
+                            visible:false,
                         },
                         {
                             type: 'area',
                             name: '二餐',
                             data: history[1],
+                            visible:false,
                         },{
                             type: 'area',
                             name: '三餐',
                             data: history[2],
+                            visible:false,
                         },{
                             type: 'area',
                             name: '四餐',
@@ -161,18 +169,22 @@ function refreshData(){
                             type: 'area',
                             name: '五餐',
                             data: history[4],
+                            visible:false,
                         },{
                             type: 'area',
                             name: '七餐',
                             data: history[6],
+                            visible:false,
                         },{
                             type: 'area',
                             name: '哈乐',
                             data: history[7],
+                            visible:false,
                         },{
                             type: 'area',
                             name: '玉兰苑',
                             data: history[8],
+                            visible:false,
                         }
                     ]
                 });

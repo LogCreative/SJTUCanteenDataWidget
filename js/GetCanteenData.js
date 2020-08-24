@@ -60,7 +60,11 @@ function refreshData(){
                     if(id==500){        //数据修正
                         seatsPart = 423;
                         remainsPart = seatsPart - usedPart;
+                    } else if(id==700){ 
+                        seatsPart = 206;
+                        remainsPart = 206 - CData[i]['Seat_u'];
                     }
+
 
                     var NameControl = document.getElementById('N'+ id);
                     if(NameControl) { NameControl.innerHTML = CData[i]['Name'];}
