@@ -2,7 +2,8 @@
     for(var i=0;i<9;i++)
         history[i] = new Array();
     
-    timestamp = [];
+    // var starttime = Date.now();
+    // timestamp = [];
 
     var samplecount = 0;
 
@@ -26,27 +27,42 @@ function refreshData(){
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var CData = JSON.parse(xmlhttp.responseText);
                 
-                timestamp.push(Date.now());
+                var nowtime = Date.now();
+                // timestamp.push(nowtime);
+                // console.log(nowtime);
 
                 for(i in CData) {
                     
                     var id = CData[i]['Id']
                     var shortid = id/100 - 1;
 
+                    var seatsPart = CData[i]['Seat_s']
                     var remainsPart = CData[i]['Seat_r'];
 
-                    if(id==500)        //数据修正
+                    if(id==500){        //数据修正
+                        seatsPart = 423;
                         remainsPart = 423 - CData[i]['Seat_u'];
-                    
+                    }
+
+                    var percentage = Math.round(remainsPart / seatsPart * 100);
+
                     if(document.getElementById('Z' + id)){
-                        history[shortid].push(remainsPart);
+                        history[shortid].push([nowtime,percentage]);
                     }   
                 }
 
                 ++samplecount;
 
-                if(samplecount<=10 || samplecount % 10 == 0)
+                if(samplecount<=10 || samplecount % 10 == 0){
                 // 创建 HighCharts
+                Highcharts.setOptions({
+                    global:{
+                        useUTC: false
+                    },credits:{
+                        enabled:false
+                    },
+                });
+
                 Highcharts.chart('container', {
                         chart: {
                             zoomType: 'x'
@@ -61,7 +77,7 @@ function refreshData(){
                         xAxis: {
                             type: 'datetime',
                             dateTimeLabelFormats: {
-                                millisecond: '%H:%M:%S.%L',
+                                millisecond: '%H:%M:%S',
                                 second: '%H:%M:%S',
                                 minute: '%H:%M',
                                 hour: '%H:%M',
@@ -69,7 +85,7 @@ function refreshData(){
                                 week: '%m-%d',
                                 month: '%Y-%m',
                                 year: '%Y'
-                            }
+                            },
                         },
                         tooltip: {
                             dateTimeLabelFormats: {
@@ -81,31 +97,37 @@ function refreshData(){
                                 week: '%m-%d',
                                 month: '%Y-%m',
                                 year: '%Y'
-                            }
+                            },
+                            valueSuffix: '%'
                         },
                         yAxis: {
                             title: {
                                 text: '空闲座位数'
-                            }
+                            },
+                            labels: {
+                                formatter: function () {
+                                    return this.value+ '%';
+                                }
+                            },
                         },
                         legend: {
                             enabled: true
                         },
                         plotOptions: {
                             area: {
-                                category: timestamp,
-                                fillColor: {
-                                    linearGradient: {
-                                        x1: 0,
-                                        y1: 0,
-                                        x2: 0,
-                                        y2: 1
-                                    },
-                                    stops: [
-                                        [0, new Highcharts.getOptions().colors[0]],
-                                        [1, new Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                    ]
-                                },
+                                // category: timestamp,
+                                // fillColor: {
+                                //     linearGradient: {
+                                //         x1: 0,
+                                //         y1: 0,
+                                //         x2: 0,
+                                //         y2: 1
+                                //     },
+                                //     stops: [
+                                //         [0, new Highcharts.getOptions().colors[0]],
+                                //         [1, new Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                //     ]
+                                // },
                                 marker: {
                                     radius: 2
                                 },
@@ -120,10 +142,41 @@ function refreshData(){
                         },
                         series: [{
                             type: 'area',
+                            name: '一餐',
+                            data: history[0],
+                        },
+                        {
+                            type: 'area',
+                            name: '二餐',
+                            data: history[1],
+                        },{
+                            type: 'area',
+                            name: '三餐',
+                            data: history[2],
+                        },{
+                            type: 'area',
                             name: '四餐',
                             data: history[3],
-                        }]
+                        },{
+                            type: 'area',
+                            name: '五餐',
+                            data: history[4],
+                        },{
+                            type: 'area',
+                            name: '七餐',
+                            data: history[6],
+                        },{
+                            type: 'area',
+                            name: '哈乐',
+                            data: history[7],
+                        },{
+                            type: 'area',
+                            name: '玉兰苑',
+                            data: history[8],
+                        }
+                    ]
                 });
+            }
 
             }
         };
