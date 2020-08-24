@@ -1,3 +1,7 @@
+var history = new Array();
+for(var i=0;i<9;i++)
+    history[i] = new Array();
+
 function refreshData(){
                 
     function _ajaxReq() {
@@ -83,6 +87,7 @@ function refreshData(){
                         used += usedPart;  //使用中的座位数
                         remain += remainsPart;  //剩余的座位数
                         remains[shortid] = remainsPart;
+                        history[shortid].push(Percentage);
                     }
                     var DistControl = document.getElementById('D'+ id);
                     if(DistControl) {

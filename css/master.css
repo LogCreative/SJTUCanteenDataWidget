@@ -1,9 +1,12 @@
 .container {
     display: grid;
     grid-column: auto auto auto auto auto;
-    grid-auto-rows: auto;
+    grid-auto-rows: 30px;
     height: 500px;
-
+    /* column-gap: 10px; */
+    align-items: center;
+    text-align:right;
+    font-family: "微软雅黑 Light";
 }
 
 .name {
@@ -28,4 +31,10 @@
 
 .recommend {
     grid-column: 6;
+}
+
+.name,.progressbar,.percent,.remain,.distance,.recommend {
+    font-weight: bold;
+    padding:2px 4px;
+    background-color:whitesmoke;
 }

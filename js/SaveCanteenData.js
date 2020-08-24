@@ -108,7 +108,7 @@ function refreshData(){
                         },
                         yAxis: {
                             title: {
-                                text: '空闲座位数'
+                                text: '空闲比例'
                             },
                             labels: {
                                 formatter: function () {
