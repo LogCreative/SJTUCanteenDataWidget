@@ -1,7 +1,7 @@
 .container {
     display: grid;
     grid-column: auto auto auto auto auto auto auto;
-    grid-auto-rows: 30px;
+    grid-auto-rows: 31px;
     height: 500px;
     /* column-gap: 10px; */
     align-items: center;
@@ -31,6 +31,7 @@
 
 .tendency {
     grid-column: 6;
+    width: 70px;
 }
 
 .recommend {
