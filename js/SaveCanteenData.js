@@ -116,6 +116,7 @@ function refreshData(){
                                 }
                             },
                             max: 100,
+                            min: 0,
                         },
                         legend: {
                             enabled: true
@@ -195,6 +196,11 @@ function refreshData(){
                         chart.series[i].update({data:history[i]});
                     for(var i=6;i<9;++i)
                         chart.series[i-1].update({data:history[i]});
+                }
+
+                if(samplecount==10){
+                    clearInterval(int);
+                    int = setInterval(refreshData,10000);   // 此后设定为 10s 一次。
                 }
 
             }

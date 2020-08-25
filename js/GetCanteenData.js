@@ -2,6 +2,8 @@ var history = new Array();
 for(var i=0;i<9;i++)
     history[i] = new Array();
 
+var sampleCount = 0;
+
 function refreshData(){
                 
     function _ajaxReq() {
@@ -141,6 +143,11 @@ function refreshData(){
                 var percentctrl = document.getElementById('Q000');
                 if(percentctrl){ percentctrl.innerHTML = percent + '%'; }
                 document.getElementById('D000').innerHTML = avgDist;
+
+                if(++sampleCount==10){
+                    clearInterval(int);
+                    int = setInterval(refreshData,10000);
+                }
             }
         };
         xmlhttp.open('GET', 'https://canteen.sjtu.edu.cn/CARD/Ajax/Place' , true);
@@ -153,4 +160,4 @@ function refreshData(){
 refreshData();
 
 //定时器
-var int=self.setInterval("refreshData()",10000);
+var int=self.setInterval("refreshData()",1000);
