@@ -3,6 +3,13 @@ for(var i=0;i<9;i++)
     history[i] = new Array();
 
 var sampleCount = 0;
+// var rangeStart = 0;
+
+var sx = [0,0,0,0,0,0,0,0,0], 
+    sy = [0,0,0,0,0,0,0,0,0],
+    sxx = [0,0,0,0,0,0,0,0,0],
+    syy = [0,0,0,0,0,0,0,0,0],
+    sxy = [0,0,0,0,0,0,0,0,0];
 
 function refreshData(){
                 
@@ -54,6 +61,10 @@ function refreshData(){
                 // 剩余人数
                 var remains = Array(9);
 
+                // 趋势量
+                var tendency = Array(9);
+                ++sampleCount;
+
                 for(i in CData){
                     
                     var id = CData[i]['Id']
@@ -89,7 +100,68 @@ function refreshData(){
                         used += usedPart;  //使用中的座位数
                         remain += remainsPart;  //剩余的座位数
                         remains[shortid] = remainsPart;
-                        history[shortid].push(Percentage);
+                        
+
+                        if(sampleCount<11){
+                            // 线性回归
+                            history[shortid].push(remainsPart);
+                            
+                            // 防止溢出，计算相对量
+                            var x = sampleCount;
+                            var y = remainsPart - history[shortid][0];
+                            
+                            sx[shortid] += x;
+                            sy[shortid] += y;
+                            sxx[shortid] += x * x;
+                            syy[shortid] += y * y;
+                            sxy[shortid] += x * y;
+                            // console.log(shortid);
+                            // x = N
+                            
+                        } else {
+                            if (sampleCount==11){
+                                //退出序列
+                                var first = history[shortid][0];
+                                var last = history[shortid][9];
+                                history[shortid] = [first,last];
+                                history[shortid].push(remainsPart);
+    
+                                // console.log(history[shortid])
+    
+                            } else {
+                                //动态回归
+                                history[shortid].push(remainsPart);
+                                if(history[shortid].length==5){
+                                   history[shortid].shift();
+                                }
+                                
+                            }
+                            //重新计算
+                            sx[shortid] = 0;
+                            sx[shortid] = 0;
+                            sy[shortid] = 0;
+                            sxx[shortid] = 0;
+                            syy[shortid] = 0;
+                            sxy[shortid] = 0;
+
+                            for(i in history[shortid]){
+                                var x = i * 10;
+                                // console.log(i);
+                                var y = remainsPart - history[shortid][0];
+                                sx[shortid] += x;
+                                sy[shortid] += y;
+                                sxx[shortid] += x * x;
+                                syy[shortid] += y * y;
+                                sxy[shortid] += x * y;
+                            }
+
+                        }
+
+                        var N = history[shortid].length;
+                        tendency[shortid] = (sy[shortid] * sx[shortid] / N - sxy[shortid])/(sx[shortid]*sx[shortid]/ N - sxx[shortid]);
+                        tendency[shortid] = tendency[shortid].toFixed(2);
+                        var tendencyControl = document.getElementById('T' + id);
+                        if(tendencyControl) { tendencyControl.innerHTML = tendency[shortid];}
                     }
                     var DistControl = document.getElementById('D'+ id);
                     if(DistControl) {
@@ -98,11 +170,13 @@ function refreshData(){
                     
                 }
 
-                // 推荐因数
+                // console.log(tendency);
+                
+                // 推荐因数 期望人数 * 衰减量 （算法三）
                 var recommend = Array(9);
                 for(var i=0;i<9;++i){
                     if(document.getElementById('D' + (i+1)*100)){            // 六餐不参与
-                        recommend[i] = Math.round(remains[i] * decay[i]);
+                        recommend[i] = Math.round((remains[i] + 60*tendency[i]) * decay[i]);
                         var recommendControl = document.getElementById('F'+(i+1)*100);
                         if(recommendControl) { recommendControl.innerHTML = recommend[i];}
                     }
@@ -132,6 +206,7 @@ function refreshData(){
                     $('#Q'+(maxptr+1)*100).css('grid-row',i+2);
                     $('#R'+(maxptr+1)*100).css('grid-row',i+2);
                     $('#D'+(maxptr+1)*100).css('grid-row',i+2);
+                    $('#T'+(maxptr+1)*100).css('grid-row',i+2);
                     $('#F'+(maxptr+1)*100).css('grid-row',i+2);
                     prevMax = maxValue;
                 }
@@ -144,7 +219,8 @@ function refreshData(){
                 if(percentctrl){ percentctrl.innerHTML = percent + '%'; }
                 document.getElementById('D000').innerHTML = avgDist;
 
-                if(++sampleCount==10){
+                
+                if(sampleCount==11){
                     clearInterval(int);
                     int = setInterval(refreshData,10000);
                 }

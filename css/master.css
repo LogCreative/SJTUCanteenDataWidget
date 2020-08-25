@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-column: auto auto auto auto auto;
+    grid-column: auto auto auto auto auto auto auto;
     grid-auto-rows: 30px;
     height: 500px;
     /* column-gap: 10px; */
@@ -29,11 +29,15 @@
     grid-column: 5;
 }
 
-.recommend {
+.tendency {
     grid-column: 6;
 }
 
-.name,.progressbar,.percent,.remain,.distance,.recommend {
+.recommend {
+    grid-column: 7;
+}
+
+.name,.progressbar,.percent,.remain,.distance,.recommend,.tendency {
     font-weight: bold;
     padding:2px 4px;
     background-color:whitesmoke;
