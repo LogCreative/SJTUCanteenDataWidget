@@ -198,7 +198,7 @@ function refreshData(){
                         chart.series[i-1].update({data:history[i]});
                 }
 
-                if(samplecount==10){
+                if(samplecount==11){
                     clearInterval(int);
                     int = setInterval(refreshData,10000);   // 此后设定为 10s 一次。
                 }
