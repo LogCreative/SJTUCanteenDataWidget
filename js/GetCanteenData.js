@@ -145,7 +145,8 @@ function refreshData(){
                             sxy[shortid] = 0;
 
                             for(i in history[shortid]){
-                                var x = i * 10;
+                                // var x = i * 10; //不太明显
+                                var x = i;
                                 // console.log(i);
                                 var y = remainsPart - history[shortid][0];
                                 sx[shortid] += x;
@@ -156,7 +157,7 @@ function refreshData(){
                             }
 
                         }
-
+                        
                         var N = history[shortid].length;
                         tendency[shortid] = (sy[shortid] * sx[shortid] / N - sxy[shortid])/(sx[shortid]*sx[shortid]/ N - sxx[shortid]);
                         tendency[shortid] = tendency[shortid].toFixed(2);
@@ -170,13 +171,17 @@ function refreshData(){
                     
                 }
 
+                console.log(history);
+                
                 // console.log(tendency);
                 
                 // 推荐因数 期望人数 * 衰减量 （算法三）
                 var recommend = Array(9);
                 for(var i=0;i<9;++i){
                     if(document.getElementById('D' + (i+1)*100)){            // 六餐不参与
-                        recommend[i] = Math.round((remains[i] + 60*tendency[i]) * decay[i]);
+                        // 开始回归阶段 将会预测 30s 之后的人数
+                        // 动态回归阶段 将会预测 5min 之后的人数
+                        recommend[i] = Math.round((remains[i] + 30*tendency[i]) * decay[i]);
                         var recommendControl = document.getElementById('F'+(i+1)*100);
                         if(recommendControl) { recommendControl.innerHTML = recommend[i];}
                     }
