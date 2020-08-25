@@ -171,7 +171,7 @@ function refreshData(){
                     
                 }
 
-                console.log(history);
+                // console.log(history);
                 
                 // console.log(tendency);
                 
