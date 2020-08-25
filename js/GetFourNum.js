@@ -12,22 +12,8 @@ function _ajaxReq() {
             var CData = JSON.parse(xmlhttp.responseText);  
             for(i in CData) {
                 if (CData[i]['Id']==400) {
-                    var seats = CData[i]['Seat_s'];
                     var remains = CData[i]['Seat_r'];
-                    var percentage = remains / seats;
-                    
-                    if (percentage > 0.7){
-                        // 绿灯
-                        $('#indicator').css('background','#4fd364');
-                    } else if (percentage > 0.3){
-                        // 黄灯
-                        $('#indicator').css('background','#ffd44b');
-                    } else {
-                        // 红灯
-                        $('#indicator').css('background','#f74c4a');
-                    }
-                    document.getElementById('indicator').innerHTML = Math.round(percentage * 100) + '%';
-                    // document.getElementById('CanteenNum').innerHTML = remains;
+                    document.getElementById('CanteenNum').innerHTML = remains;
                 }
             }
         }
