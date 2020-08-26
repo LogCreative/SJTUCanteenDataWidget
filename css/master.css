@@ -1,6 +1,8 @@
 .container {
     display: grid;
+    display: -ms-grid;
     grid-column: auto auto auto auto auto auto auto;
+    -ms-grid-columns: auto auto auto auto auto auto auto;
     grid-auto-rows: 31px;
     height: 500px;
     /* column-gap: 10px; */
@@ -9,37 +11,54 @@
     font-family: "微软雅黑 Light";
 }
 
-.name {
+.name,.N {
     grid-column: 1;
+    -ms-grid-column: 1;
+}
+
+.progressbar,.O {
+    grid-column: 2;
+    -ms-grid-column: 2;
 }
 
 .progressbar {
-    grid-column: 2;
+    grid-row: 1;
+    -ms-grid-row: 1;
 }
 
-.percent {
+.percent,.Q {
     grid-column: 3;
+    -ms-grid-column: 3;
 }
 
-.remain {
+.remain,.R {
     grid-column: 4;
+    -ms-grid-column: 4;
 }
 
-.distance {
+.distance,.D {
     grid-column: 5;
+    -ms-grid-column: 5;
 }
 
-.tendency {
+.tendency,.T {
     grid-column: 6;
+    -ms-grid-column: 6;
     width: 70px;
 }
 
-.recommend {
+.recommend,.F {
     grid-column: 7;
+    -ms-grid-column: 7;
 }
 
 .name,.progressbar,.percent,.remain,.distance,.recommend,.tendency {
     font-weight: bold;
     padding:2px 4px;
     background-color:whitesmoke;
+}
+
+#N000,#C000,#Q000,#R000,#D000,#T000,#F000 {
+    grid-row: 10;
+    -ms-grid-row: 10;
 }
