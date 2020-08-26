@@ -16,7 +16,7 @@
     -ms-grid-column: 1;
 }
 
-.progressbar,.O {
+.progressbar {
     grid-column: 2;
     -ms-grid-column: 2;
 }
@@ -61,4 +61,12 @@
 #N000,#C000,#Q000,#R000,#D000,#T000,#F000,#O000 {
     grid-row: 10;
     -ms-grid-row: 10;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    #O000,#O100,#O200,#O300,#O400,#O500,#O600,#O700,#O800,#O900{
+        grid-column: 2;
+        -ms-grid-column: 2;
+    }
 }
