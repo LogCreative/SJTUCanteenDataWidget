@@ -58,7 +58,7 @@
     background-color:whitesmoke;
 }
 
-#N000,#C000,#Q000,#R000,#D000,#T000,#F000 {
+#N000,#C000,#Q000,#R000,#D000,#T000,#F000,#O000 {
     grid-row: 10;
     -ms-grid-row: 10;
 }

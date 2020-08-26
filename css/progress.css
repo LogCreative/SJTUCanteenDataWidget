@@ -3,6 +3,7 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    display: block;
     -webkit-box-align: center;
     -webkit-align-items: center;
     -ms-flex-align: center;
@@ -102,4 +103,13 @@ body {
  
 progress::-webkit-progress-bar {
     background-color: #d7d7d7;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    progress{
+        height:20px;
+        display:block;
+        width:100px;
+    }
 }
