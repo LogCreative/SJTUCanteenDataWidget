@@ -27,7 +27,7 @@ function _ajaxReq() {
                         $('#indicator').css('background','#f74c4a');
                     }
                     document.getElementById('indicator').innerHTML = Math.round(percentage * 100) + '%';
-                    document.getElementById('NN').innerHTML = navigator.appVersion;
+                    // document.getElementById('NN').innerHTML = navigator.appVersion;
                     // document.getElementById('CanteenNum').innerHTML = remains;
                 }
             }
