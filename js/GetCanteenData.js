@@ -11,6 +11,57 @@ var sx = [0,0,0,0,0,0,0,0,0],
     syy = [0,0,0,0,0,0,0,0,0],
     sxy = [0,0,0,0,0,0,0,0,0];
 
+function Rad(d){
+    return d * Math.PI / 180.0;//经纬度转换成三角函数中度分表形式。
+}
+//计算距离，参数分别为第一点的纬度，经度；第二点的纬度，经度
+function GetDistance(lat1,lng1,lat2,lng2){
+    var radLat1 = Rad(lat1);
+    var radLat2 = Rad(lat2);
+    var a = radLat1 - radLat2;
+    var  b = Rad(lng1) - Rad(lng2);
+    var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
+    Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+    s = s *6378.137 ;// EARTH_RADIUS;
+    s = Math.round(s * 10000) / 10000; //输出为公里
+    s=s.toFixed(2);
+    return s;
+}
+
+// 距离数据
+// 默认从学创中心开始
+var dist = [0.55,1.0,0.75,0.15,1.6,1.7,1.5,0.77,0.41];
+
+// 一 二 三 四 五 六 七 哈乐 玉兰
+var CanteenLocation = [
+    [121.438265,31.028543],
+    [121.442699,31.02936],
+    [121.439511,31.033175],
+    [121.433739,31.031528],
+    [121.447719,31.03008],
+    [121.451094,31.035639],
+    [121,446952,31.03594],
+    [121.438838,31.027096],
+    [121.437748,31.029834]
+];
+
+if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(location){
+        //获取成功
+        var crd = location.coords;
+        for(var i = 0; i < CanteenLocation.length; i++){
+            dist[i] = GetDistance(crd.latitude,crd.longitude,CanteenLocation[i][1],CanteenLocation[i][0]);
+        }
+        console.log(dist);
+    },function(err){
+        //获取失败
+        console.debug(err);
+    });
+} else {
+    console.debug('不支持');
+}
+
+
 function refreshData(){
                 
     function _ajaxReq() {
@@ -29,10 +80,6 @@ function refreshData(){
                 var seats = 0;
                 var used = 0;
                 var remain = 0;
-
-                // 距离数据
-                // 一 二 三 四 五 六 七 哈乐 玉兰
-                var dist = [0.55,1.0,0.75,0.15,1.6,1.7,1.5,0.77,0.41];
 
                 var totalDist = 0;  // 总距离
                 var count = 0;

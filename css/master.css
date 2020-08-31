@@ -3,7 +3,7 @@
     display: -ms-grid;
     grid-column: auto auto auto auto auto auto auto;
     -ms-grid-columns: auto auto auto auto auto auto auto;
-    grid-auto-rows: 31px;
+    grid-auto-rows: mimax(25px,62px);
     height: auto;
     width: 100%;
     /* column-gap: 10px; */
@@ -56,6 +56,7 @@
     font-weight: bold;
     padding:2px 4px;
     background-color:whitesmoke;
+    height: 60px;
 }
 
 #N000,#C000,#Q000,#R000,#D000,#T000,#F000,#O000 {
