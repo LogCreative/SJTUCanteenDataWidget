@@ -41,7 +41,7 @@ var CanteenLocation = [
     [121.433739,31.031528],
     [121.447719,31.03008],
     [121.451094,31.035639],
-    [121,446952,31.03594],
+    [121.446952,31.03594],
     [121.438838,31.027096],
     [121.437748,31.029834]
 ];
@@ -52,7 +52,7 @@ if(navigator.geolocation){
         var crd = location.coords;
         for(var i = 0; i < CanteenLocation.length; i++){
             var tempdist = GetDistance(crd.latitude,crd.longitude,CanteenLocation[i][1],CanteenLocation[i][0]);
-            if(tempdist<=100)        // 超过一百公里应当认为不在学校
+            if(tempdist<=1000)        // 超过一百公里应当认为不在学校
                 dist[i] = tempdist;
         }
         console.log(dist);
