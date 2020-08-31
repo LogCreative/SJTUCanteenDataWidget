@@ -24,7 +24,8 @@ function GetDistance(lat1,lng1,lat2,lng2){
     Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
     s = s *6378.137 ;// EARTH_RADIUS;
     s = Math.round(s * 10000) / 10000; //输出为公里
-    s=s.toFixed(2);
+    s = s.toFixed(2);
+    s = parseFloat(s);
     return s;
 }
 
@@ -51,7 +52,7 @@ if(navigator.geolocation){
         var crd = location.coords;
         for(var i = 0; i < CanteenLocation.length; i++){
             var tempdist = GetDistance(crd.latitude,crd.longitude,CanteenLocation[i][1],CanteenLocation[i][0]);
-            if(tempdist<=100)        // 超过一百公里应当认为不在学校
+            // if(tempdist<=100)        // 超过一百公里应当认为不在学校
                 dist[i] = tempdist;
         }
         console.log(dist);
@@ -271,7 +272,7 @@ function refreshData(){
                 document.getElementById('P000').value = percent;
                 var percentctrl = document.getElementById('Q000');
                 if(percentctrl){ percentctrl.innerHTML = percent + '%'; }
-                document.getElementById('D000').innerHTML = avgDist;
+                // document.getElementById('D000').innerHTML = avgDist;
 
                 
                 if(sampleCount==11){
