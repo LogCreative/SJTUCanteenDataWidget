@@ -71,3 +71,34 @@
         -ms-grid-column: 2;
     }
 }
+
+@media (max-width:768px){
+    .percent,#Q000,#Q100,#Q200,#Q300,#Q400,#Q500,#Q600,#Q700,#Q800,#Q900{
+        display:none;
+    }
+
+    .container{
+        grid-column: auto auto auto auto auto auto;
+        -ms-grid-columns: auto auto auto auto auto auto;
+    }
+
+    .remain,.R {
+        grid-column: 3;
+        -ms-grid-column: 3;
+    }
+    
+    .distance,.D {
+        grid-column: 4;
+        -ms-grid-column: 4;
+    }
+    
+    .tendency,.T {
+        grid-column: 5;
+        -ms-grid-column: 5;
+    }
+    
+    .recommend,.F {
+        grid-column: 6;
+        -ms-grid-column: 6;
+    }
+}
