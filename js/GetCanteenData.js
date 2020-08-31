@@ -52,7 +52,7 @@ if(navigator.geolocation){
         var crd = location.coords;
         for(var i = 0; i < CanteenLocation.length; i++){
             var tempdist = GetDistance(crd.latitude,crd.longitude,CanteenLocation[i][1],CanteenLocation[i][0]);
-            // if(tempdist<=100)        // 超过一百公里应当认为不在学校
+            if(tempdist<=100)        // 超过一百公里应当认为不在学校
                 dist[i] = tempdist;
         }
         console.log(dist);
